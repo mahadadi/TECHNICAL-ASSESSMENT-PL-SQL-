@@ -4,7 +4,7 @@ DBMS_SCHEDULER can be used to schedule tasks and jobs on specific time intervals
 -------------------------------------------------------------------------------------------------------------
 Firstly Procedure will be created.
 */
--- This procedure can be merged to the package as well, but here is just an example of scheduling--
+-- This procedure can be merged into the package as well, but here is just an example of scheduling--
 
 CREATE OR REPLACE PROCEDURE UpdateProductQuantity(
     p_ProductID NUMBER,
@@ -24,7 +24,7 @@ BEGIN
         job_name        => 'UPDATE_PRODUCT_QUANTITY_JOB',
         job_type        => 'PLSQL_BLOCK',
         job_action      => 'BEGIN UpdateProductQuantity(1, 50); END;',
-        start_date      => SYSTIMESTAMP,
+        start_date      => SYSDATE,
         repeat_interval => 'FREQ=DAILY; BYHOUR=9; BYMINUTE=0; BYSECOND=0',
         enabled         => TRUE
     );
