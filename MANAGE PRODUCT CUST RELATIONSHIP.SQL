@@ -153,7 +153,7 @@ CREATE OR REPLACE PACKAGE BODY CustomerProductService AS
     END UpdateCustomer;
 END CustomerProductService;
 
--- Usage examples
+------------------ Usage examples------------------
 -- 1): Add a new customer
 BEGIN
     CustomerProductService.AddCustomer('Ahad', 'Imtiaz', 'ahad@gmail.com', 'ahad1@gmail.com', 1);
@@ -181,4 +181,29 @@ DECLARE
     customers_cursor SYS_REFCURSOR;
 BEGIN
     customers_cursor := CustomerProductService.GetCustomersForProduct(1);
+END;
+
+------------------------ Show product details using dbms_output ---------------------------
+DECLARE
+    products_cursor SYS_REFCURSOR;
+    product_id Products.Product_ID%TYPE;
+    book_title Products.Book_Title%TYPE;
+    book_price Products.Book_Price%TYPE;
+    book_quantity Products.Book_Quantity%TYPE;
+BEGIN
+    -- Call the GetProductsForCustomer function by package and pass the customer ID
+    products_cursor := CustomerProductService.GetProductsForCustomer(p_Customer_ID => 1);
+    LOOP
+        FETCH products_cursor INTO product_id, book_title, book_price, book_quantity;
+        EXIT WHEN products_cursor%NOTFOUND;
+
+        -- Print product details using dbms_output
+        DBMS_OUTPUT.PUT_LINE('Product ID: ' || product_id);
+        DBMS_OUTPUT.PUT_LINE('Book Title: ' || book_title);
+        DBMS_OUTPUT.PUT_LINE('Book Price: ' || book_price);
+        DBMS_OUTPUT.PUT_LINE('Book Quantity: ' || book_quantity);
+        DBMS_OUTPUT.NEW_LINE;
+    END LOOP;
+
+    CLOSE products_cursor;
 END;
