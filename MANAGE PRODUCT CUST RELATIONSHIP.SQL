@@ -55,7 +55,7 @@ END CustomerProductService;
 
 -- Create the package body
 CREATE OR REPLACE PACKAGE BODY CustomerProductService AS
-    -- 1): Add a new customer
+    -- 1): Add a new customer. This procedure also demonstrates field validations ------------
     PROCEDURE AddCustomer(
         p_First_Name IN Customers.First_Name%TYPE,
         p_Last_Name IN Customers.Last_Name%TYPE,
@@ -68,6 +68,11 @@ CREATE OR REPLACE PACKAGE BODY CustomerProductService AS
 
 	IF p_First_Name IS NULL OR p_Last_Name IS NULL THEN
          RAISE_APPLICATION_ERROR(-20001, 'first Name and Last Name must be provided');
+    	END IF;
+	IF  (p_Email_Office IS NOT NULL AND NOT REGEXP_LIKE(p_Email_Office, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$') ) OR
+        (p_Email_Personal IS NOT NULL AND NOT REGEXP_LIKE(p_Email_Personal, '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$') )
+        then
+         RAISE_APPLICATION_ERROR(-20001, 'EMAIL Format incorrect');
     	END IF;
     	select nvl(max(Customer_ID),0)+1 into v_Customer_id from Customers;
         INSERT INTO Customers (Customer_ID, First_Name, Last_Name, Email_Office, Email_Personal, Family_Members)
