@@ -1,10 +1,10 @@
 /*
 -------------------------------------------------------------------------------------------------------------
-DBMS_SCHEDULER can be used to schedule tasks and jobs on specific time intervals. If we discuss the products and customers relationship, and I want to schedule a job to update the product quantity in the Products table every day at a specific time which is 9AM.
+DBMS_SCHEDULER can be used to schedule tasks and jobs at specific time intervals. If we discuss the products and customers relationship, I want to schedule a job to update the product quantity in the Products table every day at a specific time which is 9AM.
 -------------------------------------------------------------------------------------------------------------
 Firstly Procedure will be created.
 */
--- This procedure can be merged into the package as well, but here is just an example of scheduling--
+-- This procedure can be merged into the package as well, but here is just an example of scheduling on products--
 
 CREATE OR REPLACE PROCEDURE UpdateProductQuantity(
     p_ProductID NUMBER,
@@ -29,4 +29,5 @@ BEGIN
         enabled         => TRUE
     );
 END;
+--Repeat interval indicates that this procedure will run at 9 AM daily.
 /
