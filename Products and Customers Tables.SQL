@@ -1,6 +1,6 @@
 /*
 ---------------------------------------------------------------------------------------------------------------
-Firstly I create the tables to illustrate a relationship between Customers and Tables
+Firstly I created the tables to deomonstrate  the relationship between Customers and Tables
 ---------------------------------------------------------------------------------------------------------------
 */
 
