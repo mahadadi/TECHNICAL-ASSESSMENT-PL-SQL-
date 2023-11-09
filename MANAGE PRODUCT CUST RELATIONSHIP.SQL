@@ -166,7 +166,7 @@ END;
 
 -- 3): Associate a product with a customer
 BEGIN
-    CustomerProductService.AssociateProductWithCustomer(1, 1);
+    CustomerProductService.AssociateProductWithCustomer(1, 1,40);
 END;
 
 -- 4): Retrieve all products associated with a customer
